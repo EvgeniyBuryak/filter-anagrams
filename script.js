@@ -3,14 +3,19 @@ let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 alert(aclean(arr)); // "nap,teachers,ear" or "PAN,cheaters,era"
 
 function aclean(anagrams) {
-    let sortArr = [];
+    let sortSet = new Set();
+    let set = new Set();
     for (let elem of anagrams) {
-        sortArr.push( Array.from(elem)
-            .sort( (a, b) => a > b ? 1 : -1 )
+        let sortElem = Array.from(elem)
+            .sort((a, b) => a > b ? 1 : -1)
             .join('')
-            .toLocaleLowerCase()
-        );
-    }
+            .toLocaleLowerCase();
 
-    return Array.from(new Set(sortArr));
+        if (!sortSet.has(sortElem)) {
+            sortSet.add(sortElem);
+            set.add(elem);
+        }
+    }
+    
+    return Array.from(set);
 }
